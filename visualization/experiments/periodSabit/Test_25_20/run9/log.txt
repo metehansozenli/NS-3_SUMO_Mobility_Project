@@ -1,0 +1,5 @@
+[0/2] Re-checking globbed directories...
+ninja: no work to do.
+Results for period= 25 end devices= 20
+0 0.000000 0.000000 0.000000% 0.000000s
+5999 4799.000000 4463.000000 92.998541% 0.185356s
