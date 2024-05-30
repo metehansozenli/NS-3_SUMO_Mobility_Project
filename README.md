@@ -1,6 +1,6 @@
-# NS-3 and SUMO LoRaWAN Mobility Performance: PDR and Latency Analysis 
+# NS-3 and SUMO LoRaWAN Mobility Performance: PDR and Delay Analysis 
 
-> This project evaluates the mobility performance of LoRaWAN using NS-3 and SUMO simulations, focusing on Packet Delivery Ratio (PDR) and latency. By simulating various mobility scenarios, we aim to understand how movement impacts the efficiency of LoRaWAN networks and provide insights for optimizing their performance in dynamic environments.
+> This project evaluates the mobility performance of LoRaWAN using NS-3 and SUMO simulations, focusing on Packet Delivery Ratio (PDR) and Delay. By simulating various mobility scenarios, we aim to understand how movement impacts the efficiency of LoRaWAN networks and provide insights for optimizing their performance in dynamic environments.
 
 ## Requirements
 
