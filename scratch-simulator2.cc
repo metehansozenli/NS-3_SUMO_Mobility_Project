@@ -147,6 +147,8 @@ main(int argc, char* argv[])
     Time stateSamplePeriod = Seconds(simulationTimeSeconds);
     helper.EnablePeriodicDeviceStatusPrinting(endDevices, gateways, "/home/metehan/nodeData.txt", stateSamplePeriod);
     helper.EnablePeriodicPhyPerformancePrinting(gateways, "/home/metehan/phyPerformance.txt", stateSamplePeriod);
+    /* PDR ve Delay hesapları için EnablePeriodicGlobalPerformancePrinting fonksiyonunda kullanılan “CountMacPacketsGlobally"
+    fonksiyonu (lora-packet-tracker.cc) içerisinde düzenlenmiştir.*/
     helper.EnablePeriodicGlobalPerformancePrinting("/home/metehan/globalPerformance.txt", stateSamplePeriod);
 
     LoraPacketTracker& tracker = helper.GetPacketTracker();
