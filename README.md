@@ -150,6 +150,20 @@ randomTrips.py -n map.net.xml -e 1000 -o map.trips.xml
 | -e | 'Sets the end time for trip generation process to 1000 seconds.' |
 | -o | 'Specifies the output file where generated trips will be saved (map.trips.xml).' |
 
+### Generates random trips for a specific network file (map.net.xml) and writes these trips to an output file (trips.xml).
+```sh
+python randomTrips.py -n map.net.xml -r routes.rou.xml -o trips.xml -e 6000 -p 30
+```
+
+| **Arguments** | **Description** |
+|---------------|-----------------|
+| -n            | 'Specifies the network file where trips will be generated (map.net.xml). This file defines the road network structure for the SUMO simulation.' |
+| -r            | 'Specifies the route file. This file defines the routes that will be used for the generated trips (routes.rou.xml).' |
+| -o            | 'Specifies the output file where generated trips will be saved (trips.xml).' |
+| -e            | 'Specifies the total duration for which trips will be generated (in seconds). In this example, trips will be generated within a duration of 6000 seconds.' |
+| -p            | 'Specifies the average time interval between trips. In this example, trips will start at an average interval of 30 seconds.' |
+
+
 ### Generate detailed route files for vehicles traveling on the network:
 
 ```sh
@@ -179,6 +193,71 @@ duarouter -n map.net.xml --route-files map.trips.xml -o map.rou.xml --ignore-err
 
 </configuration>
 ```
+
+### Used to start the SUMO simulation and save the simulation data to an output file using a specified configuration file
+
+```sh
+sumo -c map.sumo.cfg --fcd-output trace.xml
+```
+| **Arguments**      | **Description** |
+|--------------------|-----------------|
+| sumo               | 'Command to start the SUMO simulation.' |
+| -c map.sumo.cfg    | 'Specifies the configuration file to be used. The configuration file (map.sumo.cfg) contains various settings on how the simulation should be run. These settings include the network file, route file, simulation duration, vehicle types, and other simulation parameters.' |
+| --fcd-output trace.xml | 'Specifies the output file used to record vehicle movement data such as position, speed, and direction during the simulation. The trace.xml file contains Floating Car Data (FCD) and is used to analyze vehicle movements obtained from the simulation results.' |
+
+
+
+### Using the traceExporter.py script, it takes a specified input file and produces a specified output file.
+
+```sh
+traceExporter.py --fcd-input map.net.xml --ns2mobility-output ns2mobility.tcl
+```
+| **Arguments**                | **Description** |
+|------------------------------|-----------------|
+| traceExporter.py             | 'Python script used to convert SUMO simulation data into different formats.' |
+| --fcd-input map.net.xml      | 'Specifies the input file containing the Floating Car Data (FCD) from the SUMO simulation. This file includes information about the vehicles' positions, speeds, and directions over time.' |
+| --ns2mobility-output ns2mobility.tcl | 'Specifies the name and format of the output file. The ns2mobility.tcl file is a mobility file compatible with the ns-2 simulator, containing the mobility traces of vehicles to be used in ns-2 simulation.' |
+
+
+
+
+# Running the code on ns3
+
+
+### Used to run a simulation script in NS-3 simulator.
+
+```sh
+./ns3 run scratch/example_simulation.cc
+```
+| **Arguments** | **Description** |
+|-----------------------|-----------------|
+| ./ns3                  | 'This command starts the NS-3 simulator. The "./" expression indicates the ns3 executable file in the current directory. It is used to launch NS-3.' |
+| run                    | 'This parameter indicates to NS-3 that the specified file needs to be executed. It is used to initiate and execute the simulation.' |
+| path/file_name.cc      | 'Specifies the file path and name of the simulation script to be executed. - "path": Specifies the directory where the simulation script is located, such as the scratch directory. - "file_name.cc": The name of the simulation script, usually a C++ file with the .cc extension. This script contains the necessary code to configure and run the simulation.' |
+
+
+### Used to run a simulation script in NS-3 simulator.
+
+```sh
+for r in $(seq 1 30);
+do
+  echo -n " $r"
+  mkdir -p "${folder}${r}"
+  ./ns3 run "$script --RngRun=$r --nDevices=$nDevices --MobileNodeProbability=$MobileNodeProbability --MinSpeed=$MinSpeed MaxSpeed=$MaxSpeed --OutputFolder=${folder}${r}" > "${folder}${r}/log.txt" 2>&1
+done
+```
+| **Arguments** | **Description** |
+|-----------------------|-----------------|
+| ./ns3                  | 'Command to start the NS-3 simulator. The "./" expression indicates the ns3 executable file in the current directory. It is used to launch NS-3.' |
+| run                    | 'Indicates to NS-3 that the specified file needs to be executed.' |
+| $script                | 'Specifies the path of the simulation script to be executed.' |
+| --RngRun               | 'Specifies the run number for the random number generator. The value of $r varies in a loop from 1 to 30, allowing the simulation to run under different random conditions.' |
+| --nDevices             | 'Specifies the number of devices to be used in the simulation. $device takes values from the nDevices array (1, 20, 70, 120, 193).' |
+| --period=${periods}    | 'Specifies the simulation period. Here, the period value is fixed at 25.' |
+| --OutputFolder=${folder}${r} | 'Specifies the folder where output files will be saved. ${folder}${r} denotes a different folder for each run.' |
+| "$folder${r}/log.txt"  | 'Redirects the simulation's standard output to log.txt file.' |
+| 2>&1                   | 'Redirects the error output to the same file. Thus, all output and error messages are collected in the same file.' |
+
 
 ## Contributors
 
